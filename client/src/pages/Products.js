@@ -2,12 +2,13 @@ import '../styles.css';
 import { useState } from "react";
 import Axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Card, Row, Col, Form, Nav, Navbar, Container } from 'react-bootstrap'
-
+import { Button, Card, Col, Form, Nav, Navbar, Container } from 'react-bootstrap'
+import { BsSearch } from "react-icons/bs";
 
 function Products() {
 
   const [products, setProducts] = useState([]);
+  const [searchProduct, setSearchProduct] = useState("");
 
   //fill products with response 
   Axios.get("http://localhost:3001/products").then((response) => {
@@ -41,8 +42,20 @@ function Products() {
 
       <div className="middle-div">
       <Container>
-        <Row className="product-row">
-          {products.map((val,key) => {
+        <div className="search-bar">
+          <Form.Control placeholder="Search Products..." type="text" style={{maxWidth: "20%"}}
+              onChange={(event) => {setSearchProduct(event.target.value);
+              }} 
+          />
+        </div>
+        <div className="product-grid">
+          {products.filter((val) => {
+            if (searchProduct === "") {
+              return val;
+            } else if (val.description.toLowerCase().includes(searchProduct.toLowerCase())) {
+                return val;
+            }
+          }).map((val,key) => {
             
            products.forEach((val,key) => {
             var firstLetter = val.description.slice(0,1); //take first letter
@@ -68,7 +81,7 @@ function Products() {
               </Col>
             )
           })}
-        </Row>
+        </div>
         </Container>
       </div>
       
