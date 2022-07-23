@@ -26,9 +26,8 @@
 .product-card{
     margin: 1rem 0 0 0;
     text-align: center;
-    width: auto;
-    width: 13rem;
     flex:1;
+    max-width: 290px;
 }
 
 .product-col{
