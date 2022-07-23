@@ -13,6 +13,13 @@ const legacy = mysql.createConnection({
   database: 'csci467'
 });
 
+const newdb = mysql.createConnection({
+  host: 'courses',
+  user: 'z1885689',
+  password: '1999Oct29',
+  database: 'z1885689'
+});
+
 app.get("/Products", (req, res) => {
     legacy.query("SELECT * FROM parts", (err, result) => {
       if (err) {
